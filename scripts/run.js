@@ -10,15 +10,17 @@ const main = async () => {
     let starCount;
     starCount = await starContract.getTotalStars();
     
-    let starTxn = await starContract.sendStar();
+    let starTxn = await starContract.sendStar('Hello');
     await starTxn.wait();
 
     starCount = await starContract.getTotalStars();
 
-    starTxn = await starContract.connect(randomPerson).sendStar();
+    starTxn = await starContract.connect(randomPerson).sendStar('bye bye');
     await starTxn.wait();
 
     starCount = await starContract.getTotalStars();
+    let allStars = await starContract.getAllStars();
+    console.log(allStars);
 }
 
 const runMain = async () => {
