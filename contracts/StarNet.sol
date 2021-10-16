@@ -7,12 +7,16 @@ import 'hardhat/console.sol';
 contract StarNet {
     uint256 totalStars;
 
+    uint256 private seed;
+
     event NewStar(address indexed from, uint256 timestamp, string message);
+    event NewWinner(address indexed from);
 
     struct Star {
         address sender;
         string message;
         uint256 timestamp;
+        bool won;
     }
 
     Star[] stars;
@@ -25,14 +29,29 @@ contract StarNet {
         totalStars += 1;
         console.log('%s just sent a Star!', msg.sender);
 
-        stars.push(Star(msg.sender, _message, block.timestamp));
+        // NEVER TO BE USED IN AN ACTUAL CONTRACT TO RANDOMIZE!!!
+        uint256 randomNumber = (block.difficulty + block.timestamp + seed) % 100;
+        console.log("Random # generated: %s", randomNumber);
+        seed = randomNumber;
 
-        emit NewStar(msg.sender, block.timestamp, _message);
+        if (randomNumber < 50) {
+            console.log("%s won!", msg.sender);
 
-        uint256 prizeAmount = 0.0001 ether;
-        require(prizeAmount <= address(this).balance, 'Contract Has insufficient funds!');
-        (bool success, ) = (msg.sender).call{value: prizeAmount}('');
-        require(success, 'Failed to withdraw money');
+            uint256 prizeAmount = 0.0001 ether;
+            require(
+                prizeAmount <= address(this).balance,
+                "Trying to withdraw more money than the contract has."
+            );
+            (bool success, ) = (msg.sender).call{value: prizeAmount}("");
+            require(success, "Failed to withdraw money from contract.");
+
+            stars.push(Star(msg.sender, _message, block.timestamp, true));
+            emit NewStar(msg.sender, block.timestamp, _message);
+            emit NewWinner(msg.sender);
+        } else {
+            stars.push(Star(msg.sender, _message, block.timestamp, false));
+            emit NewStar(msg.sender, block.timestamp, _message);
+        }
     }
 
     function getTotalStars() public view returns (uint256) {
