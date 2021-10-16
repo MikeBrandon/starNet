@@ -68,6 +68,7 @@ contract StarNet {
     }
 
     function getLastStar() public view returns (uint256) {
+        console.log('Last Star:', lastStarred[msg.sender]);
         return lastStarred[msg.sender];
     }
 }
