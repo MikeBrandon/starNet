@@ -9,9 +9,7 @@ const main = async () => {
     console.log("Contract Deployed to: ", starContract.address);
     console.log("Contract Deployed by: ", owner.address);
 
-    let contractBalance = await hre.ethers.provider.getBalance(
-        starContract.address
-    );
+    let contractBalance = await hre.ethers.provider.getBalance(starContract.address);
     console.log(
         'Contract balance:',
         hre.ethers.utils.formatEther(contractBalance)
@@ -32,7 +30,7 @@ const main = async () => {
     let allStars = await starContract.getAllStars();
     console.log(allStars);
 
-    contractBalance = await hre.ethers.provider.getBalance(waveContract.address);
+    contractBalance = await hre.ethers.provider.getBalance(starContract.address);
     console.log(
         'Contract balance:',
         hre.ethers.utils.formatEther(contractBalance)
