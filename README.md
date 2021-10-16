@@ -1,6 +1,6 @@
 # StarNet
 
-Contract Address: [0xe85749ac33738fD1E7430763731270B74b17b52A](https://rinkeby.etherscan.io/address/0xe85749ac33738fD1E7430763731270B74b17b52A).
+Contract Address: [0x4C92BEBfa0b92d2B6B3EEEB5d6743839F10CF3Cc](https://rinkeby.etherscan.io/address/0x4C92BEBfa0b92d2B6B3EEEB5d6743839F10CF3Cc).
 
 ```shell
 npx hardhat accounts
