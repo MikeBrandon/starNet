@@ -17,7 +17,7 @@ contract StarNet {
 
     Star[] stars;
 
-    constructor() {
+    constructor() payable {
         console.log('Welcome to StarNet Contract');
     }
 
