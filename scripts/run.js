@@ -40,6 +40,8 @@ const main = async () => {
     let allStars = await starContract.getAllStars();
     console.log(allStars);
 
+    lastStar = await starContract.getLastStar();
+
     contractBalance = await hre.ethers.provider.getBalance(starContract.address);
     console.log(
         'Contract balance:',
