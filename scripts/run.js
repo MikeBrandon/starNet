@@ -27,6 +27,16 @@ const main = async () => {
     await starTxn.wait();
 
     starCount = await starContract.getTotalStars();
+
+    starTxn = await starContract.sendStar('Hello again');
+    await starTxn.wait();
+
+    starCount = await starContract.getTotalStars();
+
+    starTxn = await starContract.connect(randomPerson).sendStar('bye bye again');
+    await starTxn.wait();
+
+    starCount = await starContract.getTotalStars();
     let allStars = await starContract.getAllStars();
     console.log(allStars);
 
