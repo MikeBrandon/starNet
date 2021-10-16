@@ -28,6 +28,11 @@ contract StarNet {
         stars.push(Star(msg.sender, _message, block.timestamp));
 
         emit NewStar(msg.sender, block.timestamp, _message);
+
+        uint256 prizeAmount = 0.0001 ether;
+        require(prizeAmount <= address(this).balance, 'Contract Has insufficient funds!');
+        (bool success, ) = (msg.sender).call{value: prizeAmount}('');
+        require(success, 'Failed to withdraw money');
     }
 
     function getTotalStars() public view returns (uint256) {
