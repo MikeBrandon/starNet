@@ -19,7 +19,7 @@ contract StarNet {
     }
 
     Star[] stars;
-    mapping(address => uint256) public lastWavedAt;
+    mapping(address => uint256) public lastStarred;
 
     constructor() payable {
         console.log('Welcome to StarNet Contract');
@@ -27,8 +27,8 @@ contract StarNet {
 
     function sendStar(string memory _message) public {
 
-        require((lastWavedAt[msg.sender] + 15 minutes) < block.timestamp, 'Wait 15min');
-        lastWavedAt[msg.sender] = block.timestamp;
+        require((lastStarred[msg.sender] + 15 minutes) < block.timestamp, 'Wait 15min');
+        lastStarred[msg.sender] = block.timestamp;
 
         totalStars += 1;
         console.log('%s just sent a Star!', msg.sender);
@@ -65,5 +65,9 @@ contract StarNet {
 
     function getAllStars() public view returns (Star[] memory) {
         return stars;
+    }
+
+    function getLastStar() public view returns (uint256) {
+        return lastStarred[msg.sender];
     }
 }
